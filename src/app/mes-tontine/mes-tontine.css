@@ -1,0 +1,523 @@
+.mes-tontines-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f7fa;
+  overflow-y: auto;
+}
+
+/* Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8ecf1;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a3a52;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #7a8fa8;
+  margin: 4px 0 0 0;
+}
+
+.header-right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.btn-create {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-create:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-create i {
+  font-size: 16px;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.user-menu:hover {
+  background-color: #f0f3f7;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e8ecf1;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a3a52;
+}
+
+.btn-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #1a3a52;
+  cursor: pointer;
+}
+
+/* Search Section */
+.search-section {
+  padding: 20px 30px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8ecf1;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  border: 1px solid #dce4eb;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1a3a52;
+  background-color: #f8f9fb;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0f2940;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(15, 41, 64, 0.1);
+}
+
+.search-input::placeholder {
+  color: #a8b8cc;
+}
+
+/* Table Container */
+.table-container {
+  flex: 1;
+  padding: 20px 30px;
+  overflow-y: auto;
+}
+
+.tontines-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.table-header {
+  background-color: #f0f3f7;
+  border-bottom: 2px solid #dce4eb;
+}
+
+.table-header th {
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a3a52;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.table-header th i {
+  margin-left: 6px;
+  font-size: 12px;
+  color: #a8b8cc;
+  opacity: 0.6;
+}
+
+.table-row {
+  border-bottom: 1px solid #e8ecf1;
+  transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+  background-color: #f8f9fb;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row td {
+  padding: 16px;
+  font-size: 14px;
+  color: #1a3a52;
+  vertical-align: middle;
+}
+
+/* Column Widths */
+.col-name {
+  width: 25%;
+}
+
+.col-amount {
+  width: 15%;
+}
+
+.col-frequency {
+  width: 15%;
+}
+
+.col-members {
+  width: 15%;
+}
+
+.col-status {
+  width: 15%;
+}
+
+.col-actions {
+  width: 15%;
+}
+
+/* Tontine Name with Avatar */
+.tontine-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tontine-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #e8f0f9 0%, #f0f5fb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a3a52;
+  font-size: 18px;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-en-cours {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-terminé {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.status-en-attente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-suspendue {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Action Buttons */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-action i {
+  font-size: 14px;
+}
+
+.btn-view {
+  background-color: #1a3a52;
+  color: white;
+}
+
+.btn-view:hover {
+  background-color: #0f2940;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(26, 58, 82, 0.3);
+}
+
+.btn-edit {
+  background-color: #1a3a52;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #0f2940;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(26, 58, 82, 0.3);
+}
+
+/* Empty State */
+.table-row.empty td {
+  text-align: center;
+  padding: 40px;
+  color: #a8b8cc;
+  font-size: 14px;
+}
+
+.empty-message {
+  text-align: center !important;
+  color: #a8b8cc !important;
+}
+
+/* Pagination */
+.pagination-container {
+  padding: 20px 30px;
+  background-color: #ffffff;
+  border-top: 1px solid #e8ecf1;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  margin: 0;
+  display: flex;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.page-item {
+  margin: 0;
+}
+
+.page-item .page-link {
+  border: 1px solid #dce4eb;
+  color: #1a3a52;
+  padding: 8px 12px;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  margin: 0;
+}
+
+.page-item:first-child .page-link {
+  border-radius: 4px 0 0 4px;
+}
+
+.page-item:last-child .page-link {
+  border-radius: 0 4px 4px 0;
+}
+
+.page-item:not(:last-child) .page-link {
+  border-right: none;
+}
+
+.page-item .page-link:hover:not(.disabled) {
+  background-color: #f0f3f7;
+  border-color: #1a3a52;
+  color: #1a3a52;
+}
+
+.page-item.active .page-link {
+  background-color: #1a3a52;
+  border-color: #1a3a52;
+  color: white;
+  cursor: default;
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .header-right {
+    gap: 12px;
+  }
+
+  .btn-create {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 992px) {
+  .page-header {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .header-left {
+    width: 100%;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .table-header th,
+  .table-row td {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .col-name {
+    width: 30%;
+  }
+
+  .col-amount,
+  .col-frequency,
+  .col-members,
+  .col-status,
+  .col-actions {
+    width: 14%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 16px 20px;
+  }
+
+  .btn-menu {
+    display: block;
+  }
+
+  .user-menu,
+  .btn-create {
+    display: none;
+  }
+
+  .search-section {
+    padding: 16px 20px;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .table-container {
+    padding: 16px 20px;
+    overflow-x: auto;
+  }
+
+  .tontines-table {
+    min-width: 700px;
+  }
+
+  .table-header th,
+  .table-row td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .tontine-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .btn-action {
+    padding: 4px 8px;
+    font-size: 11px;
+    min-width: 50px;
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .pagination-info {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 12px 16px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .page-subtitle {
+    font-size: 12px;
+  }
+
+  .search-section {
+    padding: 12px 16px;
+  }
+
+  .table-container {
+    padding: 12px 16px;
+  }
+
+  .tontines-table {
+    min-width: 600px;
+    font-size: 11px;
+  }
+
+  .pagination-container {
+    padding: 12px 16px;
+  }
+}

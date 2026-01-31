@@ -1,0 +1,118 @@
+<div class="membres-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="page-title">Gestion des Membres</h1>
+      <p class="tontine-name">{{ nomTontine }}</p>
+    </div>
+    <div class="header-right">
+      <button class="btn-ajouter" [routerLink]="'/ajouter-membre'">
+        <i class="bi bi-plus"></i>
+        Ajouter un membre
+      </button>
+      <button class="btn-retirer" (click)="retirerMembre()">
+        <i class="bi bi-trash"></i>
+        Retirer
+      </button>
+        <app-user-profil></app-user-profil>
+
+    </div>
+  </div>
+
+  <!-- Barre de recherche et filtres -->
+  <div class="search-filter-section">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Rechercher..."
+      [value]="rechercheQuery()"
+      (keyup)="rechercher($any($event.target).value)"
+    />
+
+    <div class="filtres">
+      <div class="filtre-group">
+        <select
+          class="filtre-select"
+          [value]="filtreRole()"
+          (change)="changerFiltre('role', $any($event.target).value)"
+        >
+          <option value="">Filtrer par rôle</option>
+          @for (role of rolesDisponibles; track role) {
+            <option [value]="role">{{ role }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filtre-group">
+        <select
+          class="filtre-select"
+          [value]="filtreStatut()"
+          (change)="changerFiltre('statut', $any($event.target).value)"
+        >
+          <option value="">Filtrer par statut</option>
+          @for (statut of statutsDisponibles; track statut) {
+            <option [value]="statut">{{ statut }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tableau des membres -->
+  <div class="tableau-container">
+    <table class="tableau-membres">
+      <thead>
+        <tr class="tableau-header">
+          <th class="col-nom">Nom</th>
+          <th class="col-telephone">Téléphone</th>
+          <th class="col-role">Rôle</th>
+          <th class="col-position">Position</th>
+          <th class="col-statut">Statut de Paiement</th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(loading){
+           <tr class="tableau-row empty">
+            <td colspan="6" class="empty-message">Chargement ...</td>
+          </tr>
+        }
+        @else if(error){
+           <tr class="tableau-row empty">
+            <td colspan="6" class="empty-message">Erreur serveur</td>
+          </tr>
+        }
+        @else if(this.membresFiltres.length > 0){
+
+        @for (membre of this.membresFiltres; track membre.id) {
+          <tr class="tableau-row">
+            <td class="col-nom">{{ membre.utilisateur.nom }}</td>
+            <td class="col-telephone">{{ membre.utilisateur.telephone }}</td>
+            <td class="col-role">{{ membre.role }}</td>
+            <td class="col-position">{{ membre.position }}</td>
+            <td class="col-statut">
+              <span class="badge-statut" [class]="'badge-' + membre.statut_paiement.toLowerCase().replace('_', '-')">
+                {{ membre.statut_paiement }}
+              </span>
+            </td>
+            <td class="col-actions">
+              <button class="btn-action btn-modifier-role" (click)="modifierRole(membre.id)" title="Modifier Rôle">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn-action btn-options" (click)="afficherOptions(membre.id)" title="Plus d'options">
+                <i class="bi bi-three-dots"></i>
+              </button>
+            </td>
+          </tr>
+        }}
+        @else{
+           <tr class="tableau-row empty">
+            <td colspan="6" class="empty-message">Aucun membre trouvé</td>
+          </tr>
+        }
+
+
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.user-menu:hover {
+  background-color: #f0f3f7;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e8ecf1;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a3a52;
+}
+
+.btn-menu {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #1a3a52;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-menu:hover {
+  background-color: #f0f3f7;
+}

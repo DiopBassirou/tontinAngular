@@ -1,0 +1,131 @@
+<div class="mes-tontines-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="page-title">Mes tontines</h1>
+      <p class="page-subtitle">Gérez et suivez vos tontines en toute simplicité</p>
+    </div>
+    <div class="header-right">
+      <a [routerLink]="'/creer-tontine'" style="text-decoration: none;">
+      <button class="btn-create" >
+        <i class="bi bi-plus"></i>
+        Créer une tontine
+      </button>
+      </a>
+            <app-user-profil></app-user-profil>
+
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-section">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Rechercher..."
+      [value]="rechercheQuery()"
+      (keyup)="rechercher($any($event.target).value)"
+    />
+  </div>
+
+  <!-- Table -->
+  <div class="table-container">
+    <table class="tontines-table">
+      <thead>
+        <tr class="table-header">
+          <th class="col-name">
+            Nom
+            <i class="bi bi-chevron-down"></i>
+          </th>
+          <th class="col-amount">
+            Montant
+            <i class="bi bi-chevron-down"></i>
+          </th>
+          <th class="col-frequency">
+            Fréquence
+            <i class="bi bi-chevron-down"></i>
+          </th>
+          <th class="col-members">
+            Membres
+            <i class="bi bi-chevron-down"></i>
+          </th>
+          <th class="col-status">
+            Statut
+            <i class="bi bi-chevron-down"></i>
+          </th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(loading){
+           <tr class="tableau-row empty">
+            <td colspan="6" class="empty-message">Chargement ...</td>
+          </tr>
+        }
+        @else if(error){
+           <tr class="tableau-row empty">
+            <td colspan="6" class="empty-message">Erreur serveur</td>
+          </tr>
+        }
+        @else if(this.membreTontine.length > 0){
+
+        @for (tontine of membreTontine; track tontine.id) {
+          <tr class="table-row">
+            <td class="col-name">
+              <div class="tontine-name">
+                <div class="tontine-avatar">
+                  <i class="bi-people"></i>
+                </div>
+                <span>{{ tontine.tontines.nom }}</span>
+              </div>
+            </td>
+            <td class="col-amount">{{ tontine.tontines.montant_cotisation }} Fcfa</td>
+            <td class="col-frequency">{{ tontine.tontines.frequence }}</td>
+            <td class="col-members">{{ tontine.tontines.nombre_max_membres }} membres</td>
+            <td class="col-status">
+              <span class="status-badge" [class]="'status-en-cours'">
+                <!-- {{ tontine.tontines.date_fin }} -->
+                  En cours
+              </span>
+            </td>
+            <td class="col-actions">
+              <button class="btn-action btn-view" (click)="afficherTontine(tontine.tontines.id)" title="Voir">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn-action btn-edit" (click)="modifierTontine(tontine.id)" title="Modifier">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+          </tr>
+        }
+       }
+        @else{
+          <p>Aucune tontine</p>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <nav aria-label="Page navigation" class="pagination-container">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="pageActuelle() === 1">
+        <a class="page-link" href="#" (click)="pagePrecedente(); $event.preventDefault()">
+          <i class="bi bi-chevron-left"></i> Précédent
+        </a>
+      </li>
+      @for (page of pages; track page) {
+        <li class="page-item" [class.active]="page === pageActuelle()">
+          <a class="page-link" href="#" (click)="allerALaPage(page); $event.preventDefault()">
+            {{ page }}
+          </a>
+        </li>
+      }
+      <li class="page-item" [class.disabled]="pageActuelle() === totalPages">
+        <a class="page-link" href="#" (click)="pageSuivante(); $event.preventDefault()">
+          Suivant <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

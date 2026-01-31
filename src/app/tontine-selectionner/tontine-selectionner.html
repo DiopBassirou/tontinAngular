@@ -1,0 +1,52 @@
+
+<div class="container fontaines-container">
+  <!-- En-tête -->
+  <div class="header-section text-center mb-5">
+    <h1 class="main-title mb-3">Mon Épargne, Mon Avenir.</h1>
+
+    <div class="welcome-section mb-4">
+      <p class="welcome-text">
+        <strong>Bienvenue {{ username }} !</strong><br />
+        Choisiez une fontaine à consulter.
+      </p>
+    </div>
+
+    <div class="separator"></div>
+  </div>
+
+  <!-- Liste des fontaines -->
+  <div class="fontaines-list">
+    <div class="fontaine-item mb-4">
+      <div class="row align-items-center">
+        @if(loading){
+           <tr class="tableau-row empty">
+            <td colspan="6" class="empty-message">Chargement ...</td>
+          </tr>
+        }
+        @else if(error){
+           <tr class="tableau-row empty">
+            <td colspan="6" class="empty-message">Erreur serveur</td>
+          </tr>
+        }
+        @else if(this.membreTontine.length > 1){
+
+        @for(mesTontine of membreTontine;track mesTontine.id_tontine){
+        <div class="col-md-6">
+          <h3 class="fontaine-title">{{mesTontine.tontines.nom}}</h3>
+          <ul class="fontaine-details list-unstyled">
+            <li class="mb-2"><strong>{{mesTontine.role}}</strong></li>
+            <li class="mb-1">{{mesTontine.tontines.montant_cotisation}} / {{mesTontine.tontines.frequence}}</li>
+            <li class="mb-1"><em>Prokane date de tour</em></li>
+            <li class="mb-3">15 Janv. 2026</li>
+          </ul>
+          <!-- <a [routerLink]="'/"></a> -->
+          <button class="btn btn-action btn-entrer" (click)="tontineChoisi(mesTontine.id_tontine)">Entrer dans la Tontine</button>
+        </div>
+        }
+      }
+      <div class="fontaine-separator mt-4"></div>
+
+    <!-- Projet École Enfants -->
+
+  </div>
+</div>

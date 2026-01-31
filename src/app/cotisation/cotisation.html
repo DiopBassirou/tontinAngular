@@ -1,0 +1,156 @@
+<div class="cotisation-container">
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">Gestion des Cotisations</h1>
+    <div class="header-right">
+      <app-user-profil></app-user-profil>
+    </div>
+  </div>
+
+  <!-- Sélection de la Tontine -->
+
+
+  <!-- Contenu des Formulaires -->
+  <div class="tabs-content">
+    <div class="formulaire-section">
+      <!-- Paiement Mobile Money -->
+      <div class="formulaire-column">
+        <h2 class="titre-formulaire">Paiement Mobile Money</h2>
+
+        <!-- Sélection Méthode Mobile Money -->
+        <div class="methode-group">
+          <label class="label-methode">Choisir un fournisseur</label>
+          <div class="methode-options">
+            <div class="methode-item">
+              <input
+                type="radio"
+                id="wave"
+                [value]="'wave'"
+                [checked]="methodeMobileMoneySelectionnee() === 'wave'"
+                (change)="changerMethodeMobileMoney('wave')"
+                class="radio-input"
+              />
+              <label for="wave" class="methode-label">
+                <div class="radio-marker"></div>
+                <div class="logo-icon wave-icon">
+                  <i class="bi bi-phone-vibrate"></i>
+                </div>
+                <span class="methode-nom">Wave</span>
+              </label>
+            </div>
+
+            <div class="methode-item">
+              <input
+                type="radio"
+                id="orange-money"
+                [value]="'orange-money'"
+                [checked]="methodeMobileMoneySelectionnee() === 'orange-money'"
+                (change)="changerMethodeMobileMoney('orange-money')"
+                class="radio-input"
+              />
+              <label for="orange-money" class="methode-label">
+                <div class="radio-marker"></div>
+                <div class="logo-icon orange-icon">
+                  <i class="bi bi-phone"></i>
+                </div>
+                <span class="methode-nom">Orange Money</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire Mobile Money -->
+        <form [formGroup]="formulaireMobileMoney" class="formulaire">
+
+
+          <div class="form-group">
+            <label for="montantMM" class="label-input">Montant</label>
+            <div class="input-montant">
+              <input
+                id="montantMM"
+                type="number"
+                class="input-field"
+                formControlName="montant"
+                placeholder="3"
+              />
+              <span class="devise">CFA</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-payer" (click)="payerMobileMoney()" [disabled]="!formulaireMobileMoney.valid">
+            <i class="bi bi-check-circle"></i>
+            Payer
+          </button>
+        </form>
+      </div>
+
+      <!-- Paiement Cash -->
+      <div class="formulaire-column">
+        <h2 class="titre-formulaire">Paiement avec trésorier</h2>
+        <p class="sous-titre">Uniquement le trésorier peut valider les paiements en cash.</p>
+
+        <!-- Formulaire Cash -->
+        <form [formGroup]="formulaireCash" class="formulaire" onsubmit="submit()">
+          <div class="form-group">
+            <label for="numMembreCash" class="label-input">Numero telephone du membre</label>
+            <input
+              id="nomMembreCash"
+              type="tel"
+              class="input-field"
+              formControlName="telephone"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <input
+              id="nomMembreCash"
+              type="number"
+              class="input-field"
+              formControlName="id_tontine"
+              hidden
+            />
+          </div>
+          <div class="form-group">
+            <input
+              id="nomMembreCash"
+              type="text"
+              class="input-field"
+              formControlName="mode_paiement"
+              hidden
+            />
+          </div>
+
+
+          <div class="form-group">
+            <label for="montantCash" class="label-input">Montant</label>
+            <div class="input-montant">
+              <input
+                id="montantCash"
+                type="number"
+                class="input-field"
+                formControlName="montant"
+                placeholder="30"
+              />
+              <span class="devise">CFA</span>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="noteCash" class="label-input">Note</label>
+            <textarea
+              id="noteCash"
+              class="textarea-field"
+              formControlName="note"
+              placeholder="Ajouter une note optionnelle..."
+            ></textarea>
+          </div>
+          
+          <button type="submit" class="btn-valider" [disabled]="!formulaireCash.valid">
+            <i class="bi bi-check-lg"></i>
+            Valider
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

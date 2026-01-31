@@ -1,0 +1,73 @@
+<div class="login-container">
+  <div class="login-card">
+    <!-- Header with Icon -->
+    <div class="login-header">
+      <div class="security-icon">
+        <i class="bi bi-shield-check"></i>
+      </div>
+      <h1 class="login-title">Bienvenue</h1>
+      <p class="login-subtitle">Gérez vos tontines en toute sécurité</p>
+    </div>
+
+    <!-- Login Form -->
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onConnect()">
+      <!-- je veux aficher l'erreur de api le message -->
+      <div *ngIf="message" class="api-error-message">
+        {{ message }}
+      </div>
+      <!-- Phone Input -->
+      <div class="form-group">
+        @if(loginForm.controls.telephone.hasError('required') && loginForm.controls.telephone.touched){
+          <div class="error-message">Le numéro de téléphone est requis.</div>
+        }
+        @if(!loginForm.controls.telephone.hasError('required') && (loginForm.controls.telephone.hasError('minlength') && loginForm.controls.telephone.touched)){
+          <div class="error-message">Le numéro de téléphone doit contenir 9 chiffres.</div>
+        }
+        @if(!loginForm.controls.telephone.hasError('required') && loginForm.controls.telephone.hasError('maxlength') && loginForm.controls.telephone.touched){
+          <div class="error-message">Le numéro de téléphone ne doit pas dépasser 9 chiffres.</div>
+        }
+        <div class="phone-input-wrapper">
+          <span class="phone-prefix">+221</span>
+          <input
+            type="tel"
+            class="form-control phone-input"
+            placeholder="Numéro de téléphone"
+            formControlName="telephone"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="form-group">
+        @if(loginForm.controls.password.hasError('required') && loginForm.controls.password.touched){
+          <div class="error-message">Le mot d'passe est requis.</div>
+        }
+        @if(!loginForm.controls.password.hasError('required') && loginForm.controls.password.hasError('minlength') && loginForm.controls.password.touched){
+          <div class="error-message">Le mot de passe doit contenir au moins 4 caractères.</div>
+        }
+
+        <div class="password-input-wrapper">
+          <i class="bi bi-lock"></i>
+          <input
+            type="password"
+            class="form-control password-input"
+            placeholder="Mot d'passe"
+            formControlName="password"
+            required
+          />
+        </div>
+        <a href="#" class="forgot-password">Oublié ?</a>
+      </div>
+
+      <!-- Connect Button -->
+      <button type="submit" class="btn-connect" [disabled]="loginForm.invalid">Se connecter</button>
+    </form>
+
+    <!-- Sign Up Link -->
+    <div class="signup-section">
+      <p class="signup-text">Nouveau sur la plateforme ?</p>
+      <a href="#" class="signup-link">Créer un compte</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,217 @@
+<div class="suivi-container">
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">Suivi Financier</h1>
+    <div class="header-right">
+            <app-user-profil></app-user-profil>
+    </div>
+  </div>
+
+  <!-- Alerte d'accès -->
+  <div class="alerte-section">
+    <div class="alerte-box">
+      <i class="bi bi-lock"></i>
+      <span class="alerte-text">Accès restreint: réservé au trésorier</span>
+    </div>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="statistiques-section">
+    <div class="carte-stat">
+      <div class="carte-header">
+        <h3 class="carte-titre">Montant total reçu</h3>
+      </div>
+      <div class="carte-montant">{{ montantTotalRecu | number }}
+        <span class="devise">CFA</span>
+      </div>
+      <div class="carte-footer">
+        <i class="bi bi-wallet2"></i>
+        <span>Montant total</span>
+        <strong>{{ montantTotalRecu | number }} CFA</strong>
+      </div>
+    </div>
+
+    <div class="carte-stat rouge">
+      <div class="carte-header">
+        <h3 class="carte-titre">Total des Cotisations</h3>
+      </div>
+      <div class="carte-montant">{{ totalCotisations | number }}
+        <span class="devise">CFA</span>
+      </div>
+      <div class="carte-footer alerte-footer">
+        <i class="bi bi-exclamation-circle"></i>
+        <span>Retards de paiement</span>
+        <strong>{{ cotisationsEnRetard | number }} CFA</strong>
+      </div>
+    </div>
+
+    <div class="carte-stat donut">
+      <div class="donut-chart">
+        <svg viewBox="0 0 120 120" class="donut-svg">
+          <circle
+            cx="60"
+            cy="60"
+            r="45"
+            fill="none"
+            stroke="#1a7659"
+            stroke-width="20"
+            stroke-dasharray="85.05 90"
+            transform="rotate(-90 60 60)"
+          />
+          <circle
+            cx="60"
+            cy="60"
+            r="45"
+            fill="none"
+            stroke="#f5a623"
+            stroke-width="20"
+            stroke-dasharray="4.95 90"
+            stroke-dashoffset="-85.05"
+            transform="rotate(-90 60 60)"
+          />
+        </svg>
+        <div class="donut-center">
+          <div class="donut-percentage">{{ pourcentageRecues }}%</div>
+        </div>
+      </div>
+      <div class="donut-legend">
+        <h3 class="donut-titre">Total des Cotisations</h3>
+        <div class="legend-items">
+          <div class="legend-item">
+            <div class="legend-color recu"></div>
+            <span>{{ cotisationsRecues | number }} CFA</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color retard"></div>
+            <span>{{ cotisationsEnRetard | number }} CFA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Détails des Paiements -->
+  <div class="details-section">
+    <h2 class="section-titre">Détails des Paiements</h2>
+
+    <div class="controles-section">
+      <div class="filtres-group">
+        <select
+          class="filtre-select"
+          [value]="filtreMethode()"
+          (change)="changerFiltre('methode', $any($event.target).value)"
+        >
+          <option value="">Toutes les méthodes</option>
+          @for (methode of methodesDisponibles; track methode) {
+            <option [value]="methode">{{ methode }}</option>
+          }
+        </select>
+
+        <select
+          class="filtre-select"
+          [value]="filtreStatut()"
+          (change)="changerFiltre('statut', $any($event.target).value)"
+        >
+          <option value="">Tous les statuts</option>
+          @for (statut of statutsDisponibles; track statut) {
+            <option [value]="statut">{{ statut }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="recherche-export">
+        <div class="search-box">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Rechercher..."
+            [value]="rechercheQuery()"
+            (keyup)="rechercher($any($event.target).value)"
+          />
+          <i class="bi bi-search icon-search"></i>
+        </div>
+
+        <button class="btn-exporter" (click)="exporter()">
+          <i class="bi bi-download"></i>
+          Exporter
+        </button>
+      </div>
+    </div>
+
+    <!-- Tableau -->
+    <div class="tableau-container">
+      <table class="tableau-paiements">
+        <thead>
+          <tr class="tableau-header">
+            <th class="col-membre">Membre</th>
+            <th class="col-telephone">Téléphone</th>
+            <th class="col-methode">Méthode</th>
+            <th class="col-montant">Montant</th>
+            <th class="col-date">Date</th>
+            <th class="col-statut">Statut et Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (paiement of paiementsPagines; track paiement.id) {
+            <tr class="tableau-row">
+              <td class="col-membre">{{ paiement.membre }}</td>
+              <td class="col-telephone">{{ paiement.telephone }}</td>
+              <td class="col-methode">
+                <span class="methode-badge">
+                  <i [class]="'bi ' + getIconMethode(paiement.methode)"></i>
+                  {{ paiement.methode }}
+                </span>
+              </td>
+              <td class="col-montant">{{ paiement.montant | number }} CFA</td>
+              <td class="col-date">{{ paiement.date }}</td>
+              <td class="col-statut">
+                <div class="statut-note">
+                  <span class="statut-badge" [class]="'statut-' + paiement.statut.toLowerCase().replace(' ', '-')">
+                    {{ paiement.statut }}
+                  </span>
+                  @if (paiement.note) {
+                    <span class="note-text">{{ paiement.note }}</span>
+                  }
+                </div>
+              </td>
+
+            </tr>
+          } @empty {
+            <tr class="tableau-row empty">
+              <td colspan="7" class="empty-message">Aucun paiement trouvé</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+      <div class="pagination-info">
+        {{ startItem }} - {{ endItem }} sur {{ totalItems }} membres
+      </div>
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="pageActuelle() === 1">
+            <a class="page-link" href="#" (click)="pagePrecedente(); $event.preventDefault()">
+              <i class="bi bi-chevron-left"></i>
+            </a>
+          </li>
+          @for (page of pages; track page) {
+            <li class="page-item" [class.active]="page === pageActuelle()">
+              <a class="page-link" href="#" (click)="allerALaPage(page); $event.preventDefault()">
+                {{ page }}
+              </a>
+            </li>
+          }
+          <li class="page-item" [class.disabled]="pageActuelle() === totalPages">
+            <a class="page-link" href="#" (click)="pageSuivante(); $event.preventDefault()">
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</div>

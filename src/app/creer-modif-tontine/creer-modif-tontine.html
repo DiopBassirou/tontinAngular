@@ -1,0 +1,140 @@
+<div class="formulaire-container">
+  <!-- Header -->
+  <div class="formulaire-header">
+    <div>
+      <h1 class="titre-principal">Créer / Modifier une Tontine</h1>
+      <p class="sous-titre">Configurez votre tontine en quelques étapes</p>
+    </div>
+    <div class="header-actions">
+      <app-user-profil></app-user-profil>
+    </div>
+  </div>
+
+  <!-- Formulaire -->
+  <form [formGroup]="formulaireTontine" class="formulaire">
+    <!-- Section Informations Générales -->
+    <div class="section-formulaire">
+      <h2 class="titre-section">Informations Générales</h2>
+
+      <div class="row-formulaire">
+        <div class="form-group">
+          <label for="nomTontine" class="label-formulaire">Nom de la tontine</label>
+          <input
+            id="nomTontine"
+            type="text"
+            class="input-formulaire"
+            formControlName="nomTontine"
+            placeholder="Cercle d'Epargne Familiale"
+          />
+          @if (nomTontine?.touched && nomTontine?.hasError('required')) {
+            <span class="erreur-message">Le nom de la tontine est requis</span>
+          }
+          @if (nomTontine?.touched && nomTontine?.hasError('minlength')) {
+            <span class="erreur-message">Le nom doit contenir au moins 3 caractères</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="acces" class="label-formulaire">Accès</label>
+          <select id="acces" class="select-formulaire" formControlName="acces">
+            @for (option of acces; track option.valeur) {
+              <option [value]="option.valeur">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Planification -->
+    <div class="section-formulaire">
+      <h2 class="titre-section">Planification</h2>
+
+      <div class="row-formulaire">
+        <div class="form-group">
+          <label for="frequence" class="label-formulaire">Fréquence des collectes</label>
+          <select id="frequence" class="select-formulaire" formControlName="frequence">
+            @for (option of frequences; track option.valeur) {
+              <option [value]="option.valeur">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="duree" class="label-formulaire">Durée</label>
+          <select id="duree" class="select-formulaire" formControlName="duree">
+            @for (option of durees; track option.valeur) {
+              <option [value]="option.valeur">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ordresTours" class="label-formulaire">Ordre des tours</label>
+          <select id="ordresTours" class="select-formulaire" formControlName="ordresTours">
+            @for (option of ordresTours; track option.valeur) {
+              <option [value]="option.valeur">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="row-formulaire">
+        <div class="form-group full-width">
+          <label for="dateDebut" class="label-formulaire">Date de début</label>
+          <div class="input-date-group">
+            <input
+              id="dateDebut"
+              type="date"
+              class="input-formulaire"
+              formControlName="dateDebut"
+              placeholder="Sélectionner une date"
+            />
+            <i class="bi bi-calendar-event icon-date"></i>
+          </div>
+          @if (dateDebut?.touched && dateDebut?.hasError('required')) {
+            <span class="erreur-message">La date de début est requise</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Mode de Paiement -->
+    <div class="section-formulaire">
+      <h2 class="titre-section">Mode de Paiement</h2>
+
+      <div class="methodePaiement-group">
+        <label class="label-methode">Méthode de paiement</label>
+        <div class="radio-options">
+          @for (methode of methodesPaiement; track methode.valeur) {
+            <div class="radio-item">
+              <input
+                type="radio"
+                [id]="'methode-' + methode.valeur"
+                [value]="methode.valeur"
+                formControlName="methodePaiement"
+                class="radio-input"
+              />
+              <label [for]="'methode-' + methode.valeur" class="radio-label">
+                <span class="radio-custom"></span>
+                <div class="radio-content">
+                  <span class="radio-titre">{{ methode.label }}</span>
+                  <span class="radio-description">{{ methode.description }}</span>
+                </div>
+              </label>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="actions-formulaire">
+      <button type="button" class="btn-annuler" (click)="annuler()">
+        Annuler
+      </button>
+      <button type="submit" class="btn-enregistrer" (click)="enregistrer()">
+        Enregistrer
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,167 @@
+<div class="profil-container">
+  <!-- Bouton Déconnexion top right -->
+  <div class="top-right-btn">
+    <button class="btn-disconnect">
+      <span>⏻</span> Déconnexion
+    </button>
+  </div>
+
+  <!-- Section Profil -->
+  <div class="profil-wrapper">
+    <!-- Sidebar avec photo de profil -->
+    <div class="profil-sidebar">
+      <div class="profile-photo-container">
+        <img src="https://via.placeholder.com/150?text=Profil" alt="Photo de profil" class="profile-photo" />
+        <button class="btn-change-photo" (click)="openPhotoModal()">
+          <span>📷</span>
+        </button>
+      </div>
+      <h3 class="profile-name">Fatou Diop</h3>
+      <p class="profile-role">Trésorière</p>
+      <div class="profile-badge">
+        <span class="badge-icon">✓</span>
+        <span class="badge-text">Profil Actif</span>
+      </div>
+    </div>
+
+    <!-- Contenu Principal -->
+    <div class="profil-main">
+      <h1 class="profil-title">Profil Utilisateur</h1>
+
+      <!-- Onglets -->
+      <div class="tabs">
+        <button
+          class="tab-button"
+          [class.active]="activeTab === 'info'"
+          (click)="switchTab('info')">
+          Modifier Informations
+        </button>
+        <button
+          class="tab-button"
+          [class.active]="activeTab === 'password'"
+          (click)="switchTab('password')">
+          Changer de Mot de Passe
+        </button>
+      </div>
+
+      <!-- Contenu Onglet Informations -->
+      <div class="tab-content" *ngIf="activeTab === 'info'">
+        <form class="form-group">
+          <div class="form-field">
+            <label for="fullname">Nom complet</label>
+            <input
+              type="text"
+              id="fullname"
+              placeholder="Fatou Diop"
+              [(ngModel)]="userData.fullname"
+              name="fullname" />
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="fatou.diop@email.com"
+              [(ngModel)]="userData.email"
+              name="email" />
+          </div>
+
+          <div class="form-field">
+            <label for="phone">Téléphone</label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="+221 77 654 3210"
+              [(ngModel)]="userData.phone"
+              name="phone" />
+          </div>
+
+          <button type="button" class="btn-save" (click)="saveUserInfo()">
+            Enregistrer
+          </button>
+        </form>
+      </div>
+
+      <!-- Contenu Onglet Mot de Passe -->
+      <div class="tab-content" *ngIf="activeTab === 'password'">
+        <div class="password-section">
+          <form class="form-group password-form">
+            <div class="form-field">
+              <label for="oldPassword">Ancien mot de passe</label>
+              <input
+                type="password"
+                id="oldPassword"
+                placeholder="Entrez votre ancien mot de passe"
+                [(ngModel)]="passwordData.oldPassword"
+                name="oldPassword" />
+            </div>
+
+            <div class="form-field">
+              <label for="newPassword">Nouveau mot de passe</label>
+              <input
+                type="password"
+                id="newPassword"
+                placeholder="Entrez votre nouveau mot de passe"
+                [(ngModel)]="passwordData.newPassword"
+                name="newPassword" />
+            </div>
+
+            <div class="form-field">
+              <label for="confirmPassword">Confirmer mot de passe</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirmez votre nouveau mot de passe"
+                [(ngModel)]="passwordData.confirmPassword"
+                name="confirmPassword" />
+            </div>
+
+            <button type="button" class="btn-change-pwd" (click)="changePassword()">
+              <span>🔐</span> Changer de Mot de Passe
+            </button>
+          </form>
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour changer la photo de profil -->
+<div class="modal" *ngIf="showPhotoModal" (click)="closePhotoModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Ajouter/Changer Photo de Profil</h2>
+      <button class="modal-close" (click)="closePhotoModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="photo-upload-area">
+        <input
+          type="file"
+          #fileInput
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          class="file-input" />
+
+        <div class="upload-placeholder" (click)="fileInput.click()">
+          <span class="upload-icon">📸</span>
+          <p>Cliquez pour sélectionner une photo</p>
+          <p class="text-muted">ou glissez-déposez une image</p>
+        </div>
+
+        <div *ngIf="previewImage" class="preview-section">
+          <img [src]="previewImage" alt="Aperçu" class="preview-image" />
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="closePhotoModal()">Annuler</button>
+      <button class="btn-upload" (click)="uploadPhoto()">Enregistrer Photo</button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,175 @@
+<div class="rapport-container">
+  <!-- Header avec sélecteur de tontine -->
+  <div class="header">
+    <h1>Rapports Financiers</h1>
+    <div class="tontine-selector">
+      <select class="select-tontine">
+        <option value="">Sélectionner une tontine</option>
+        <option value="1">Tontine Solidarité</option>
+        <option value="2">Tontine Succès</option>
+        <option value="3">Tontine Entraide</option>
+      </select>
+    </div>
+    <!-- Action buttons -->
+  <div class="actions">
+    <button class="btn btn-pdf">📄 Exporter en PDF</button>
+    <button class="btn btn-excel">📊 Exporter en Excel</button>
+  </div>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="stats-container">
+    <div class="stat-card success">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <p class="stat-label">Montant total reçu</p>
+        <p class="stat-value">1.540.000 CFA</p>
+      </div>
+    </div>
+
+    <div class="stat-card warning">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-content">
+        <p class="stat-label">Retards de paiement</p>
+        <p class="stat-value">100.000 CFA</p>
+      </div>
+    </div>
+
+    <div class="stat-card info">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <p class="stat-label">Nombre de Transactions</p>
+        <p class="stat-value">320</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Synthèse Mensuelle et Méthodes de paiement -->
+  <div class="charts-container">
+    <div class="chart-section monthly-chart">
+      <div class="chart-header">
+        <h2>Synthèse Mensuelle</h2>
+        <p class="chart-subtitle">Montants reçus par mois</p>
+      </div>
+      <svg viewBox="0 0 600 400" class="bar-chart">
+        <!-- Grille de fond -->
+        <defs>
+          <linearGradient id="barGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#81C784;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="barGradientAlt" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#66BB6A;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#A5D6A7;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+
+        <!-- Lignes horizontales de grille -->
+        <line x1="60" y1="280" x2="1180" y2="280" stroke="#e0e0e0" stroke-width="1" />
+        <line x1="60" y1="210" x2="1180" y2="210" stroke="#e0e0e0" stroke-width="1" />
+        <line x1="60" y1="140" x2="1180" y2="140" stroke="#e0e0e0" stroke-width="1" />
+        <line x1="60" y1="70" x2="1180" y2="70" stroke="#e0e0e0" stroke-width="1" />
+
+        <!-- Labels axe Y -->
+        <text x="50" y="285" font-size="12" text-anchor="end" fill="#999">0</text>
+        <text x="50" y="215" font-size="12" text-anchor="end" fill="#999">200k</text>
+        <text x="50" y="145" font-size="12" text-anchor="end" fill="#999">400k</text>
+        <text x="50" y="75" font-size="12" text-anchor="end" fill="#999">600k</text>
+
+        <!-- Axes -->
+        <line x1="60" y1="40" x2="60" y2="300" stroke="#333" stroke-width="2" />
+        <line x1="60" y1="300" x2="1180" y2="300" stroke="#333" stroke-width="2" />
+
+        <!-- Barres pour chaque mois -->
+        <!-- Janvier -->
+        <rect x="75" y="180" width="35" height="120" fill="url(#barGradient)" rx="4" />
+        <text x="92.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Jan</text>
+        <text x="92.5" y="170" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">350k</text>
+
+        <!-- Février -->
+        <rect x="115" y="150" width="35" height="150" fill="url(#barGradientAlt)" rx="4" />
+        <text x="132.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Fév</text>
+        <text x="132.5" y="140" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">450k</text>
+
+        <!-- Mars -->
+        <rect x="155" y="120" width="35" height="180" fill="url(#barGradient)" rx="4" />
+        <text x="172.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Mar</text>
+        <text x="172.5" y="110" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">540k</text>
+
+        <!-- Avril -->
+        <rect x="195" y="100" width="35" height="200" fill="url(#barGradientAlt)" rx="4" />
+        <text x="212.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Avr</text>
+        <text x="212.5" y="90" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">600k</text>
+
+        <!-- Mai -->
+        <rect x="235" y="140" width="35" height="160" fill="url(#barGradient)" rx="4" />
+        <text x="252.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Mai</text>
+        <text x="252.5" y="130" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">480k</text>
+
+        <!-- Juin -->
+        <rect x="275" y="110" width="35" height="190" fill="url(#barGradientAlt)" rx="4" />
+        <text x="292.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Juin</text>
+        <text x="292.5" y="100" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">570k</text>
+
+        <!-- Juillet -->
+        <rect x="315" y="80" width="35" height="220" fill="url(#barGradient)" rx="4" />
+        <text x="332.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Juil</text>
+        <text x="332.5" y="70" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">660k</text>
+
+        <!-- Août -->
+        <rect x="355" y="130" width="35" height="170" fill="url(#barGradientAlt)" rx="4" />
+        <text x="372.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Août</text>
+        <text x="372.5" y="120" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">510k</text>
+
+        <!-- Septembre -->
+        <rect x="395" y="105" width="35" height="195" fill="url(#barGradient)" rx="4" />
+        <text x="412.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Sep</text>
+        <text x="412.5" y="95" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">585k</text>
+
+        <!-- Octobre -->
+        <rect x="435" y="125" width="35" height="175" fill="url(#barGradientAlt)" rx="4" />
+        <text x="452.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Oct</text>
+        <text x="452.5" y="115" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">525k</text>
+
+        <!-- Novembre -->
+        <rect x="475" y="95" width="35" height="205" fill="url(#barGradient)" rx="4" />
+        <text x="492.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Nov</text>
+        <text x="492.5" y="85" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">615k</text>
+
+        <!-- Décembre -->
+        <rect x="515" y="110" width="35" height="190" fill="url(#barGradientAlt)" rx="4" />
+        <text x="532.5" y="320" font-size="13" font-weight="500" text-anchor="middle" fill="#333">Déc</text>
+        <text x="532.5" y="100" font-size="12" font-weight="600" text-anchor="middle" fill="#2e7d32">570k</text>
+      </svg>
+    </div>
+
+    <div class="chart-section">
+      <h2>Méthodes de paiement</h2>
+      <div class="pie-chart-container">
+        <svg viewBox="0 0 200 200" class="pie-chart">
+          <!-- Diagramme circulaire simple -->
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#4CAF50" stroke-width="40" stroke-dasharray="125 314" stroke-dashoffset="0" />
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#1976D2" stroke-width="40" stroke-dasharray="94 314" stroke-dashoffset="-125" />
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#FF9800" stroke-width="40" stroke-dasharray="95 314" stroke-dashoffset="-219" />
+          <text x="100" y="110" font-size="24" font-weight="bold" text-anchor="middle" dominant-baseline="middle">50%</text>
+        </svg>
+        <div class="payment-methods-legend">
+          <div class="legend-item">
+            <span class="legend-color" style="background-color: #4CAF50;"></span>
+            <span class="legend-label">Wave: 770 000 CFA</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background-color: #1976D2;"></span>
+            <span class="legend-label">Orange Money: 470 000 CFA</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background-color: #FF9800;"></span>
+            <span class="legend-label">Cash CFA: 300 000 CFA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

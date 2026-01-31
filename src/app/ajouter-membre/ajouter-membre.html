@@ -1,0 +1,131 @@
+<div class="header">
+    <div class="header-left">
+      <nav class="breadcrumb">
+        <a href="#" class="breadcrumb-item">Dashboard</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-current">Membre</span>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-item">Ajouter un membre</span>
+      </nav>
+    </div>
+    <div class="header-right">
+
+            <app-user-profil></app-user-profil>
+
+    </div>
+  </div>
+<div class="container">
+
+  <div class="content">
+    <h1>Ajouter un Membre</h1>
+    <p class="description">Remplissez le formulaire pour ajouter un nouveau membre.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onAjouter()">
+      <!-- Sélection Tontine -->
+      <div class="form-group">
+        <label for="tontine">Tontine <span class="required">*</span></label>
+        <select id="tontine" class="form-control" formControlName="tontine">
+          <option value="">Sélectionner une tontine</option>
+          @for (tontine of tontines; track tontine.id) {
+            <option [value]="tontine.id">
+              {{ tontine.name }}
+            </option>
+          }
+        </select>
+        @if (form.get('tontine')?.hasError('required') && form.get('tontine')?.touched) {
+          <span class="error-message">
+            La tontine est requise
+          </span>
+        }
+      </div>
+
+      <!-- Nom Complet -->
+      <div class="form-group">
+        <label for="nom">Nom Complet</label>
+        <input type="text" id="nom" class="form-control" formControlName="nomComplet" placeholder="">
+        @if (form.get('nomComplet')?.hasError('required') && form.get('nomComplet')?.touched) {
+          <span class="error-message">
+            Le nom complet est requis
+          </span>
+        }
+        @if (form.get('nomComplet')?.hasError('minlength') && form.get('nomComplet')?.touched) {
+          <span class="error-message">
+            Le nom doit contenir au moins 3 caractères
+          </span>
+        }
+      </div>
+
+      <!-- Numéro de Téléphone -->
+      <div class="form-group">
+        <label for="telephone">Numéro de Téléphone</label>
+        <div class="phone-input">
+          <select class="country-code" formControlName="codePaysTelephone">
+            @for (code of countryCodes; track code) {
+              <option [value]="code">
+                {{ code }}
+              </option>
+            }
+          </select>
+          <input type="tel" id="telephone" class="form-control" formControlName="telephone" placeholder="">
+        </div>
+        @if (form.get('telephone')?.hasError('required') && form.get('telephone')?.touched) {
+          <span class="error-message">
+            Le numéro de téléphone est requis
+          </span>
+        }
+        @if (form.get('telephone')?.hasError('pattern') && form.get('telephone')?.touched) {
+          <span class="error-message">
+            Format de téléphone invalide
+          </span>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email <span class="optional">(Optionnel)</span></label>
+        <input type="email" id="email" class="form-control" formControlName="email" placeholder="">
+        @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+          <span class="error-message">
+            Format email invalide
+          </span>
+        }
+      </div>
+
+      <!-- Rôle -->
+      <div class="form-group">
+        <label for="role">Rôle <span class="required">*</span></label>
+        <select id="role" class="form-control" formControlName="role">
+        @for (role of roles; track role) {
+            <option [value]="role">
+              {{ role }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <!-- Position dans la Tontine -->
+      <div class="form-group">
+        @if (form.get('position')?.hasError('required') && form.get('position')?.touched) {
+          <span class="error-message">
+            La position est requise
+          </span>
+        }
+      </div>
+
+      @if (form.get('dateDebut')?.hasError('required') && form.get('dateDebut')?.touched) {
+          <span class="error-message">
+            La date de début est requise
+          </span>
+        }
+        <label for="dateDebut">Date de Début</label>
+        <input type="date" id="dateDebut" class="form-control" formControlName="dateDebut" placeholder="mm/yyyy">
+
+
+      <!-- Boutons -->
+      <div class="form-buttons">
+        <button type="button" class="btn-annuler" (click)="onAnnuler()">Annuler</button>
+        <button type="submit" class="btn-soumettre" [disabled]="form.invalid">Ajouter le Membre</button>
+      </div>
+    </form>
+  </div>
+</div>

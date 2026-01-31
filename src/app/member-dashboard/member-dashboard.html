@@ -1,0 +1,152 @@
+<div class="member-dashboard">
+  <div class="header">
+    <div class="header-left">
+      <nav class="breadcrumb">
+        <a href="#" class="breadcrumb-item">Tontine Digitale</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-current">Membre</span>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="notification-icon">
+        <i class="bi bi-bell"></i>
+        <span class="notification-badge">2</span>
+      </div>
+            <app-user-profil></app-user-profil>
+
+    </div>
+  </div>
+
+  <div class="content">
+      <!-- FIRST ROW - 3 Cards -->
+      <div class="row">
+        <!-- MA POSITION -->
+        <div class="card position-card">
+          <div class="card-icon">
+            <i class="bi bi-geo-alt"></i>
+          </div>
+          <h3>Ma Position</h3>
+          <div class="position-body">
+            <div class="position-number">{{ myPosition().position }}ème</div>
+          </div>
+        </div>
+
+        <!-- PROCHAIN BÉNÉFICIAIRE -->
+        <div class="card beneficiary-card">
+          <h3>Prochain Bénéficiaire</h3>
+          <div class="beneficiary-body">
+            <div class="beneficiary-avatar">{{ nextBeneficiary().avatar }}</div>
+            <div class="beneficiary-info">
+              <p class="beneficiary-name">{{ nextBeneficiary().name }}</p>
+              <p class="beneficiary-pos">Position : {{ nextBeneficiary().position }}ème</p>
+            </div>
+            <div class="beneficiary-arrow">
+              <i class="bi bi-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROCHAINE DATE -->
+        <div class="card date-card">
+          <h3>Prochaine Date</h3>
+          <div class="date-body">
+            <div class="date-dropdown">
+              <p class="day">{{ nextDate().day|date:'d'}}</p>
+              <p class="month">{{ nextDate().month|date:'MMMM  yyyy'|uppercase}}</p>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECOND ROW - Prochains Tours + Historique -->
+      <div class="row-two-cols">
+        <!-- PROCHAINS TOURS -->
+        <div class="card tours-card">
+          <h3>Prochains Tours</h3>
+          <div class="tours-body">
+            @for( tour of prochaineTour;track tour.id){
+            <div class="tour-row">
+              <div class="tour-date">
+                <span class="tour-day">{{ tour.date_prevue| date:'d' }}</span>
+                <span class="tour-month">{{ tour.date_prevue| date:'MMMM yyyy' }}</span>
+              </div>
+              <div class="tour-info">
+                <div class="tour-avatar">{{ tour.utilisateur.nom.charAt(0)|uppercase }}</div>
+                <div>
+                  <p class="tour-title">#{{ tour.periode }} Tour</p>
+                  <p class="tour-name">{{ tour.utilisateur.nom }}</p>
+                </div>
+              </div>
+              <div class="tour-pos">Position : {{ tour.periode}} ème</div>
+              <div class="tour-arrow">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </div>
+          }@empty {
+          <tr class="table-row empty">
+            <td colspan="6" class="empty-message">Pas de tour prevu</td>
+          </tr>
+        }
+          </div>
+        </div>
+
+        <!-- HISTORIQUE PAIEMENT -->
+        <div class="card payment-card">
+          <h3>Mon Historique de Paiement</h3>
+          <div class="payment-body">
+            <div class="payment-header">
+              <span>Date</span>
+              <span>Montant</span>
+              <span>Statut</span>
+            </div>
+            @for(payment of historiquePaiement; track payment.periode){
+            <div  class="payment-item">
+              <span>{{ payment.date_versement |date:'dd MMM yyyy' }}</span>
+              <span>{{ payment.montant|number }} Fcfa</span>
+              <span class="status">payé</span>
+            </div>
+          }@empty {
+          <tr class="table-row empty">
+            <td colspan="6" class="empty-message">vous n'avez pas encors payè</td>
+          </tr>
+        }
+          </div>
+          <a href="#" class="more-link">Voir plus <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- THIRD ROW - Contribution + Notifications -->
+      <div class="row-two-cols">
+        <!-- MA CONTRIBUTION -->
+        <div class="card contribution-card">
+          <h3>Ma Contribution</h3>
+          <div class="contribution-body">
+            <div class="amount-section">
+              <span class="value">{{ amountContributed | number}}</span>
+              <span class="currency">XOF</span>
+            </div>
+            <p class="period">Période actuelle : {{ date_demarrage |date:'MMMM'}}- {{date_fin|date:'MMMM yyyy'}}</p>
+            <p class="last-pay">Tontine: {{ nameTontine }}</p>
+          </div>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div class="card notifications-card">
+          <h3>Notifications</h3>
+          <div class="notifications-body">
+            <div *ngFor="let notif of notifications()" class="notif-item">
+              <div class="notif-icon">
+                <i class="bi bi-exclamation-circle"></i>
+              </div>
+              <div class="notif-text">
+                <p class="notif-type">{{ notif.type }}</p>
+                <p class="notif-msg">{{ notif.message }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

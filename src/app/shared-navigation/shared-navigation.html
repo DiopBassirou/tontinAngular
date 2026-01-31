@@ -1,0 +1,23 @@
+﻿<div class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">TD</div>
+    <div>
+      <div class="logo-text1">Tontine</div>
+      <div class="logo-text2">Digitale</div>
+    </div>
+  </div>
+
+  <nav class="nav-menu">
+    @for (item of menuItems; track $index) {
+      <a
+        [routerLink]="getRouteForMenuItem(item.label)"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: item.label === 'Dashboard' }"
+        class="nav-link"
+      >
+        <i [class]="'bi ' + item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+</div>
